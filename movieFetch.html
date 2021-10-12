@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+     #movieDetail{
+     display: grid;
+     grid-template-columns: repeat(4,24%);
+     gap: 10px;
+     margin: 3px;
+     background-color: black;
+     color: white;
+ }
+ img{
+     height: 200px;
+    width: 200px;
+ }
+
+        
+    </style>
+</head>
+
+<body>
+    <input type="text" id="movie" placeholder="enter a movie name">
+    <button onclick="findMovie()">Search</button>
+    <div id="movieDetail">
+
+    </div>
+</body>
+
+</html>
+<script>
+
+    let movieDetail = document.getElementById('movieDetail')
+    async function findMovie() {
+        let movie = document.getElementById('movie').value;
+        console.log(movie)
+        let res = await fetch(`https://www.omdbapi.com/?s=${movie}&apikey=68bfdedf`)
+        let data = await res.json()
+
+        console.log(data)
+  
+        if (data.Response == 'True') {
+            showDetails(data.Search)
+        }
+        else {
+            movieDetail.innerHTML = null
+            console.log('you')
+            let img = document.createElement('img')
+            img.src = 'https://cdn.mos.cms.futurecdn.net/pMGfBE5gnyuzxa6BGKAi3Q-480-80.jpg'
+            movieDetail.append(img)
+        }
+    }
+
+
+    function showDetails(detail) {
+
+        movieDetail.innerHTML = null;
+
+        detail.forEach(function (d) {
+            let div = document.createElement('div')
+            let moviePoster = document.createElement('img')
+            moviePoster.src = d.Poster;
+
+            let title = document.createElement('p')
+            title.textContent = d.Title
+   
+
+            div.append(moviePoster, title)
+            movieDetail.append(div)
+            div.onclick = function () {
+                movieee(d)
+                
+            }
+
+
+        })
+    }
+
+    async function movieee(dd) {
+
+        console.log(dd.imdbID)
+        let res = await fetch(`https://www.omdbapi.com/?i=${dd.imdbID}&apikey=68bfdedf`)
+        let data = await res.json()
+        console.log(data)
+
+        localStorage.setItem('moviedetails', JSON.stringify(data))
+
+        window.location.href = 'moviedetails.html';
+
+
+    }
+
+
+
+
+
+</script>
