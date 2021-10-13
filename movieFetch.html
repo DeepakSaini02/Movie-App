@@ -7,24 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-     #movieDetail{
-     display: grid;
-     grid-template-columns: repeat(4,24%);
-     gap: 10px;
-     margin: 3px;
-     background-color: black;
-     color: white;
- }
- img{
-     height: 200px;
-    width: 200px;
- }
+      
+        #movieDetail {
+            display: grid;
+            grid-template-columns: repeat(4, 24%);
+            gap: 10px;
+            margin: 3px;
+         
+            color: white;
+        }
+    
+        img {
+            height: 200px;
+            width: 200px;
+        }
 
-        
+        input[type=text] {
+  width: 100px;
+  transition: width .35s ease-in-out;
+}
+
+input[type=text]:focus {
+  width: 250px;
+
+}
     </style>
 </head>
 
 <body>
+    
     <input type="text" id="movie" placeholder="enter a movie name">
     <button onclick="findMovie()">Search</button>
     <div id="movieDetail">
@@ -43,7 +54,7 @@
         let data = await res.json()
 
         console.log(data)
-  
+        document.querySelector('body').style.backgroundColor='#4DB6AC'
         if (data.Response == 'True') {
             showDetails(data.Search)
         }
@@ -68,13 +79,13 @@
 
             let title = document.createElement('p')
             title.textContent = d.Title
-   
+
 
             div.append(moviePoster, title)
             movieDetail.append(div)
             div.onclick = function () {
                 movieee(d)
-                
+
             }
 
 
