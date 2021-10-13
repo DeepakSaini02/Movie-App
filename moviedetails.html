@@ -7,18 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+
+body{
+    background-color: #616161;
+}
        #show {
-            border: 2px solid black;
-            margin: -315px 284px;
-            background-color: black;
+          width: 50%;
+          display: inline-block;
+          vertical-align: top;
+            border: 2px solid #757575;
+            box-shadow:  10px 5px 5px #757575;
+          
+            background-color:#757575;
             color: white;
-            /* border-radius: 10px; */
-            height: 308px;
         }
 
         img {
-            height: 311px;
-            width: 281px;
+            width: 18%;
+           
         }
 
     </style>
@@ -59,11 +65,12 @@
         ratings.textContent = d.imdbRating
         let des = document.createElement('p')
         des.textContent = d.Plot
-        let recom = document.createElement('p')
+        let recom = document.createElement('label')
         recom.textContent = 'recommendated'
+        recom.style.backgroundColor='#FBC02D'
 
-        if (d.imdbRating >= 8.5) {
-            div.append(recom)
+        if (d.imdbRating > 8.5) {
+            div2.append(recom)
         }
         div2.append(title, releaseDate, ratings, des)
         div.append(moviePoster,div2)
